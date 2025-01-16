@@ -1,0 +1,33 @@
+CREATE DATABASE planta;
+
+USE planta;
+
+CREATE TABLE planta (
+    cod_planta INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    imagem LONGBLOB,  -- Para armazenar a imagem da planta em formato binário
+    cod_tipoPlanta INT,
+    FOREIGN KEY (cod_tipoPlanta) REFERENCES tipo_planta(cod_tipoPlanta)
+);
+CREATE TABLE tipo_planta (
+    cod_tipoPlanta INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE doenca (
+    cod_doenca INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    imagem LONGBLOB,  -- Para armazenar a imagem da planta em formato binário
+    cod_tipoDoenca INT,
+    FOREIGN KEY (cod_tipoDoenca) REFERENCES tipo_doenca(cod_tipoDoenca)
+);
+CREATE TABLE tipo_doenca (
+    cod_tipoDoenca INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Solo (
+    cod_solo INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL
+);
+
