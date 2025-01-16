@@ -1,0 +1,60 @@
+CREATE DATABASE farmacia;
+
+USE farmacia;
+
+-- Tabela para a entidade 'farmacia'
+CREATE TABLE farmacia (
+    id_farmacia INT AUTO_INCREMENT PRIMARY KEY,
+    cnpj VARCHAR(14) NOT NULL,
+    end_farmacia VARCHAR(255) NOT NULL,
+    nome_farmacia VARCHAR(255) NOT NULL,
+    tel_farmacia VARCHAR(15) NOT NULL
+);
+
+-- Tabela para os produtos vendidos pela farmácia
+CREATE TABLE produto (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    cod_produto VARCHAR(20) NOT NULL,
+    nome_produto VARCHAR(255) NOT NULL,
+    valor_produto DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabela de associação entre 'farmacia' e 'produto'
+CREATE TABLE venda_produto (
+    id_farmacia INT,
+    id_produto INT,
+    qtd_produto INT NOT NULL,
+    PRIMARY KEY (id_farmacia, id_produto),
+    FOREIGN KEY (id_farmacia) REFERENCES farmacia(id_farmacia) ON DELETE CASCADE,
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto) ON DELETE CASCADE
+);
+
+-- Tabela para os farmacêuticos
+CREATE TABLE farmaceutico (
+    id_farmaceutico INT AUTO_INCREMENT PRIMARY KEY,
+    rg_farmaceutico VARCHAR(20) NOT NULL,
+    nome_farmaceutico VARCHAR(255) NOT NULL,
+    id_farmacia INT,
+    FOREIGN KEY (id_farmacia) REFERENCES farmacia(id_farmacia) ON DELETE CASCADE
+);
+SHOW TABLES;
+-- Inserir farmácia
+INSERT INTO farmacia (cnpj, end_farmacia, nome_farmacia, tel_farmacia) 
+VALUES ('12345678000195', 'Rua A, 123, Centro', 'Farmácia Central', '(11) 1234-5678');
+
+-- Inserir produto
+INSERT INTO produto (cod_produto, nome_produto, valor_produto) 
+VALUES ('A1234', 'Paracetamol 500mg', 10.50);
+
+-- Inserir farmacêutico
+INSERT INTO farmaceutico (rg_farmaceutico, nome_farmaceutico, id_farmacia) 
+VALUES ('MG1234567', 'Carlos Silva', 1);
+
+-- Registrar venda de produto na farmácia
+INSERT INTO venda_produto (id_farmacia, id_produto, qtd_produto) 
+VALUES (1, 1, 100);
+
+SELECT * FROM farmacia;
+SELECT * FROM produto;
+SELECT * FROM farmaceutico;
+SELECT * FROM venda_produto;
